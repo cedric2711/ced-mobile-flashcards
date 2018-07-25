@@ -1,11 +1,13 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import AddCard from './components/AddCard'
+import Deck from './components/Deck'
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Starting Application</Text>
+        <Deck/>
       </View>
     );
   }
