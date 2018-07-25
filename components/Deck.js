@@ -2,17 +2,6 @@ import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
 
-
-function SubmitBtn ({ onPress }) {
-    return (
-      <TouchableOpacity
-        style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-        onPress={onPress}>
-          <Text style={styles.submitBtnText}>SUBMIT</Text>
-      </TouchableOpacity>
-    )
-}
-
 class Deck extends React.Component {
     state = {
         title:'Deck 1',
