@@ -29,7 +29,8 @@ class Deck extends React.Component {
         const {title, question} = this.state
         return (
             <View>
-                <Text>{title}</Text>
+                <Text style={{fontSize: 50, textAlign: 'center', color: black}}>{title}</Text>
+                <Text style={{fontSize: 40, textAlign: 'center', color: gray}}>{question.length} Cards</Text>
                 <TouchableOpacity
                     style = {styles.addCardBtn}
                     onPress={this.addCard}>
