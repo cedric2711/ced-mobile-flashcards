@@ -1,11 +1,24 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
-
+const qu= [
+    {
+        question:"Question 1",
+        answer: "Answer 1"
+    },
+    {
+        question:"Question 2",
+        answer: "Answer 2"
+    },
+    {
+        question:"Question 3",
+        answer: "Answer 3"
+    }
+]
 class Deck extends React.Component {
     state = {
         title:'Deck 1',
-        question:[],
+        question:qu,
     }
     addCard = () => {
         debugger;

@@ -23,7 +23,8 @@ class Quiz extends React.Component {
         questions:qu ,
         currentQuestion: 0,
         quizCompleted: false,
-        showAnswer:false
+        showAnswer:false,
+        showAnswerText: "Answer"
     }
    
     backToDeck = () => {
@@ -31,8 +32,10 @@ class Quiz extends React.Component {
 
     }
     showAnswer = () => {
+        const { showAnswer } = this.state
         this.setState({
-            showAnswer:true
+            showAnswer: !showAnswer,
+            showAnswerText: (!showAnswer)?'Question':'Answer'
         })
     }
     correctAns = () => {
@@ -51,16 +54,17 @@ class Quiz extends React.Component {
             totalCorrect: (isCorrect)? totalCorrect+1: totalCorrect,
             currentQuestion: (currentQuestion <= (questions.length-1))? currentQuestion+1:currentQuestion,
             quizCompleted: (currentQuestion+1 == questions.length)? true : false,
-            showAnswer: false
+            showAnswer: false,
+            showAnswerText: "Answer"
         })
     }
     render () {
-        const {totalCorrect, questions, currentQuestion, quizCompleted, showAnswer} = this.state
+        const {totalCorrect, questions, currentQuestion, quizCompleted, showAnswer, showAnswerText} = this.state
 
         if(quizCompleted){
             return (
                 <View>
-                    <Text>{totalCorrect}</Text>
+                    <Text style={{fontSize: 50, textAlign: 'center', color: black}}>You got {totalCorrect} correct</Text>
                     <TouchableOpacity
                         style = {styles.correctBtn}
                         onPress={this.backToDeck}>
@@ -78,17 +82,17 @@ class Quiz extends React.Component {
                 <TouchableOpacity
                     style = {styles.answerBtn}
                     onPress={this.showAnswer}>
-                    <Text style={styles.correctText}>Answer</Text>
+                    <Text style={styles.correctText}>{showAnswerText}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style = {styles.correctBtn}
                     onPress={this.correctAns}>
-                    <Text style={styles.correctText}>Add Card</Text>
+                    <Text style={styles.correctText}>Correct</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style = {styles.incorrectBtn}
                     onPress={this.incorrectAns}>
-                    <Text style={styles.incorrectText}>Start Quiz</Text>
+                    <Text style={styles.incorrectText}>Incorrect</Text>
                 </TouchableOpacity>
             </View>
         )
