@@ -3,6 +3,7 @@ export const ADD_DECK = 'ADD_DECK'
 export const ADD_QUESTION = 'ADD_QUESTION'
 
 export function receiveDecks (decks) {
+  debugger
   return {
     type: RECEIVE_DECKS,
     decks,

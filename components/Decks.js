@@ -1,12 +1,14 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform, FlatList } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
+import { receiveDecks } from '../actions'
 import getDummyDecksData from '../utils/data'
+import { connect } from 'react-redux'
 import { AppLoading} from 'expo'
 import {fetchDeckResults} from '../utils/api'
 function Card ({title, questions}) {
     return(
-        <View style={styles.container}>
+         <View style={styles.container}>
             <Text style={{fontSize: 50, textAlign: 'center', color: black}}>{title}</Text>
             <Text style={{fontSize: 30, textAlign: 'center', color: gray}}>{questions.length}</Text>
         </View>
@@ -19,8 +21,10 @@ class Decks extends React.Component {
         questions: {}
     }
     componentDidMount () {
-       // const { dispatch } = this.props
+        debugger
+        const { dispatch } = this.props
         fetchDeckResults()
+           // .then((entries) => dispatch(receiveDecks(entries)))
             .then((entries) => {
                 if(entries){
                     this.setState({
@@ -31,7 +35,17 @@ class Decks extends React.Component {
             })
     }
     renderItem = ({item}) => {
-        return <Card {...item} />
+        return (
+            <TouchableOpacity
+                onPress={() => this.props.navigation.navigate(
+                'Deck',
+                { deckId: item.title }
+                )}
+            >
+                <Card {...item} />
+            </TouchableOpacity>
+        )
+
     }
     _keyExtractor = (item, index) => item.title
 
@@ -70,4 +84,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Decks
+function mapStateToProps({ entries }) {
+    debugger
+    return {
+      entries
+    }
+  }
+  export default connect(mapStateToProps)(Decks)

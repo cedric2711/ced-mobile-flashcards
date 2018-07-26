@@ -28,6 +28,8 @@ class Deck extends React.Component {
         debugger;
     }
     render () {
+        debugger;
+        const {deckId} = this.props
         const {title, question} = this.state
         return (
             <View>
