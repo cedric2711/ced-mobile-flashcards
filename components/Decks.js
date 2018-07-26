@@ -1,7 +1,9 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform, FlatList } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
-import getDecksData from '../utils/data'
+import getDummyDecksData from '../utils/data'
+import { AppLoading} from 'expo'
+import {fetchDeckResults} from '../utils/api'
 function Card ({title, questions}) {
     return(
         <View style={styles.container}>
@@ -12,6 +14,22 @@ function Card ({title, questions}) {
 }
 
 class Decks extends React.Component {
+    state = {
+        ready: false,
+        questions: {}
+    }
+    componentDidMount () {
+       // const { dispatch } = this.props
+        fetchDeckResults()
+            .then((entries) => {
+                if(entries){
+                    this.setState({
+                        ready: true,
+                        questions: entries
+                    })
+                }
+            })
+    }
     renderItem = ({item}) => {
         return <Card {...item} />
     }
@@ -19,9 +37,14 @@ class Decks extends React.Component {
 
     render() {
         debugger
-        const questions = getDecksData()
-        questionsArray = Object.keys(questions).map(value => questions[value])
+        // const questions = getDummyDecksData()
+        const {questions, ready} = this.state
+        if (ready === false) {
+            return <AppLoading />
+        }
 
+        questionsArray = Object.keys(questions).map(value => questions[value])
+        
         return (
             <View style={styles.container}> 
                 <FlatList 

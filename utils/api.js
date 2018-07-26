@@ -1,11 +1,14 @@
 import { AsyncStorage } from 'react-native'
-import { formatCalendarResults, CALENDAR_STORAGE_KEY } from './_calendar'
+import getDummyDecksData from '../utils/data'
 
 export const DECKS_STORAGE_KEY = 'Cedric:DecksKey'
-
-export function fetchCalendarResults () {
+function getData (result) {
+    debugger;
+    return (result == null )? getDummyDecksData():result
+}
+export function fetchDeckResults () {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then(formatCalendarResults)
+    .then(getData)
 }
 
 export function submitEntry ({ entry, key }) {

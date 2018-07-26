@@ -408,7 +408,7 @@ const DecksData = {
         ]
     }
   }
-//                   {questionsArray.map(({title, questions}) => <Card key={title} title={title} questions={questions}/> )}
-  export default function getDecksData () {
+
+  export default function getDummyDecksData () {
       return DecksData
   }
