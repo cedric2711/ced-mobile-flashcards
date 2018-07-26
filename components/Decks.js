@@ -1,10 +1,10 @@
 import React from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform, FlatList } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
 import getDecksData from '../utils/data'
 function Card ({title, questions}) {
     return(
-        <View>
+        <View style={styles.container}>
             <Text style={{fontSize: 50, textAlign: 'center', color: black}}>{title}</Text>
             <Text style={{fontSize: 30, textAlign: 'center', color: gray}}>{questions.length}</Text>
         </View>
@@ -12,6 +12,11 @@ function Card ({title, questions}) {
 }
 
 class Decks extends React.Component {
+    renderItem = ({item}) => {
+        return <Card {...item} />
+    }
+    _keyExtractor = (item, index) => item.title
+
     render() {
         debugger
         const questions = getDecksData()
@@ -19,7 +24,11 @@ class Decks extends React.Component {
 
         return (
             <View style={styles.container}> 
-                {questionsArray.map(({title, questions}) => <Card key={title} title={title} questions={questions}/> )}
+                <FlatList 
+                    data= {questionsArray}
+                    renderItem= {this.renderItem}
+                    keyExtractor={this._keyExtractor}
+                />
             </View>
         )
     }
