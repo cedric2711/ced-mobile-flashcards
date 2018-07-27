@@ -1,27 +1,17 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { white, gray, black, green, red } from '../utils/colors'
-import {getEntry} from '../utils/api'
-import {  clearLocalNotification, setLocalNotification } from '../utils/helpers'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
+import { connect } from 'react-redux'
 
 class Quiz extends React.Component {
     state = {
-        totalCorrect:0,
-        questions:[],
+        totalCorrect: 0,
+        questions: [],
         currentQuestion: 0,
         quizCompleted: false,
-        showAnswer:false,
+        showAnswer: false,
         showAnswerText: "Answer"
-    }
-
-    componentDidMount () {
-        const deckTitle = this.props.navigation.state.params.deckId
-        getEntry(deckTitle)
-            .then((deck)=> {
-                this.setState({
-                    questions:deck.questions
-                })
-            })
     }
 
     backToDeck = () => {
@@ -31,12 +21,12 @@ class Quiz extends React.Component {
         )
         clearLocalNotification()
             .then(setLocalNotification)
-        
+
     }
 
     restartQuiz = () => {
         this.setState({
-            totalCorrect:0,
+            totalCorrect: 0,
             currentQuestion: 0,
             quizCompleted: false
         })
@@ -49,43 +39,47 @@ class Quiz extends React.Component {
         const { showAnswer } = this.state
         this.setState({
             showAnswer: !showAnswer,
-            showAnswerText: (!showAnswer)?'Question':'Answer'
+            showAnswerText: (!showAnswer) ? 'Question' : 'Answer'
         })
     }
     correctAns = () => {
-        debugger
+        
         this.questionAnswered(true)
     }
 
     incorrectAns = () => {
-        debugger
+        
         this.questionAnswered(false)
     }
-    questionAnswered =(isCorrect) =>{
-        debugger
-        const {totalCorrect, currentQuestion, questions} = this.state;
+    questionAnswered = (isCorrect) => {
+        
+        const { totalCorrect, currentQuestion } = this.state;
+        const deckId = this.props.navigation.state.params.deckId
+        const { questions } = this.props.decks[deckId]
         this.setState({
-            totalCorrect: (isCorrect)? totalCorrect+1: totalCorrect,
-            currentQuestion: (currentQuestion <= (questions.length-1))? currentQuestion+1:currentQuestion,
-            quizCompleted: (currentQuestion+1 == questions.length)? true : false,
+            totalCorrect: (isCorrect) ? totalCorrect + 1 : totalCorrect,
+            currentQuestion: (currentQuestion <= (questions.length - 1)) ? currentQuestion + 1 : currentQuestion,
+            quizCompleted: (currentQuestion + 1 == questions.length) ? true : false,
             showAnswer: false,
             showAnswerText: "Answer"
         })
     }
-    render () {
-        const {totalCorrect, questions, currentQuestion, quizCompleted, showAnswer, showAnswerText} = this.state
+    render() {
+        const { totalCorrect, currentQuestion, quizCompleted, showAnswer, showAnswerText } = this.state
+        const deckId = this.props.navigation.state.params.deckId
+        const { questions } = this.props.decks[deckId]
 
-        if(quizCompleted){
+        if (quizCompleted) {
             return (
                 <View>
-                    <Text style={{fontSize: 50, textAlign: 'center', color: black}}>You got {totalCorrect} correct</Text>
+                    <Text style={{ fontSize: 50, textAlign: 'center', color: black }}>You got {totalCorrect} correct</Text>
                     <TouchableOpacity
-                        style = {styles.restartBtn}
+                        style={styles.restartBtn}
                         onPress={this.restartQuiz}>
                         <Text style={styles.correctText}>Restart Quiz</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style = {styles.correctBtn}
+                        style={styles.correctBtn}
                         onPress={this.backToDeck}>
                         <Text style={styles.correctText}>Back To Deck</Text>
                     </TouchableOpacity>
@@ -104,22 +98,22 @@ class Quiz extends React.Component {
         }
 
         return (
-            <View style = {styles.container}>
-                <Text style={{fontSize: 12, textAlign: 'left', color: gray}}>{(currentQuestion+1)}/{questions.length} Cards</Text>
-                {! showAnswer && <Text style={{fontSize: 50, textAlign: 'center', color: black}}>{questions[currentQuestion].question}</Text> }
-                { showAnswer && <Text style={{fontSize: 50, textAlign: 'center', color: black}}>{questions[currentQuestion].answer}</Text> }
+            <View style={styles.container}>
+                <Text style={{ fontSize: 12, textAlign: 'left', color: gray }}>{(currentQuestion + 1)}/{questions.length} Cards</Text>
+                {!showAnswer && <Text style={{ fontSize: 50, textAlign: 'center', color: black }}>{questions[currentQuestion].question}</Text>}
+                {showAnswer && <Text style={{ fontSize: 50, textAlign: 'center', color: black }}>{questions[currentQuestion].answer}</Text>}
                 <TouchableOpacity
-                    style = {styles.answerBtn}
+                    style={styles.answerBtn}
                     onPress={this.showAnswer}>
                     <Text style={styles.correctText}>{showAnswerText}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style = {styles.correctBtn}
+                    style={styles.correctBtn}
                     onPress={this.correctAns}>
                     <Text style={styles.correctText}>Correct</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style = {styles.incorrectBtn}
+                    style={styles.incorrectBtn}
                     onPress={this.incorrectAns}>
                     <Text style={styles.incorrectText}>Incorrect</Text>
                 </TouchableOpacity>
@@ -130,14 +124,14 @@ class Quiz extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      padding: 20,
-      backgroundColor: white
+        flex: 1,
+        padding: 20,
+        backgroundColor: white
     },
     row: {
-      flexDirection: 'row',
-      flex: 1,
-      alignItems: 'center',
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
     },
     restartBtn: {
         backgroundColor: gray,
@@ -168,30 +162,38 @@ const styles = StyleSheet.create({
         marginRight: 40,
     },
     correctText: {
-      color: black,
-      fontSize: 22,
-      textAlign: 'center',
+        color: black,
+        fontSize: 22,
+        textAlign: 'center',
     },
     incorrectText: {
         color: white,
         fontSize: 22,
         textAlign: 'center',
-      },
+    },
     center: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginLeft: 30,
-      marginRight: 30,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        marginRight: 30,
     },
     input: {
-        width:200,
-        height:44,
+        width: 200,
+        height: 44,
         borderColor: gray,
         borderWidth: 1,
         margin: 50,
         padding: 0
     }
-  })
+})
 
-  export default Quiz
+function mapStateToProps(decks) {
+    
+    return {
+        decks
+    }
+}
+export default connect(
+    mapStateToProps,
+)(Quiz)

@@ -4,24 +4,25 @@ import { createBottomTabNavigator } from 'react-navigation';
 import Decks from './Decks'
 import AddDeck from './AddDeck'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { white, purple} from '../utils/colors'
+import { white, purple } from '../utils/colors'
 
-const Tabs = createBottomTabNavigator({
-    Decks:{
+const Tabs = createBottomTabNavigator(
+  {
+    Decks: {
       screen: Decks,
       navigationOptions: {
         tabBarLabel: 'Decks',
         tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
       },
     },
-    AddDeck:{
+    AddDeck: {
       screen: AddDeck,
       navigationOptions: {
         tabBarLabel: 'Add Deck',
         tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
       },
     }
-  }, 
+  },
   {
     navigationOptions: {
       header: null
@@ -42,4 +43,4 @@ const Tabs = createBottomTabNavigator({
     }
   })
 
-  export default Tabs
+export default Tabs

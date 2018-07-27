@@ -1,25 +1,25 @@
 const DecksData = {
     React: {
-      title: 'React',
-      questions: [
-        {
-          question: 'What is React?',
-          answer: 'A library for managing user interfaces'
-        },
-        {
-          question: 'Where do you make Ajax requests in React?',
-          answer: 'The componentDidMount lifecycle event'
-        }
-      ]
+        title: 'React',
+        questions: [
+            {
+                question: 'What is React?',
+                answer: 'A library for managing user interfaces'
+            },
+            {
+                question: 'Where do you make Ajax requests in React?',
+                answer: 'The componentDidMount lifecycle event'
+            }
+        ]
     },
     JavaScript: {
-      title: 'JavaScript',
-      questions: [
-        {
-          question: 'What is a closure?',
-          answer: 'The combination of a function and the lexical environment within which that function was declared.'
-        }
-      ]
+        title: 'JavaScript',
+        questions: [
+            {
+                question: 'What is a closure?',
+                answer: 'The combination of a function and the lexical environment within which that function was declared.'
+            }
+        ]
     },
     "Deck 3": {
         title: "Deck 3",
@@ -52,7 +52,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 4": {
@@ -86,7 +86,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 5": {
@@ -120,7 +120,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 6": {
@@ -154,7 +154,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 7": {
@@ -188,7 +188,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 8": {
@@ -222,7 +222,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 9": {
@@ -281,7 +281,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 11": {
@@ -315,7 +315,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 12": {
@@ -383,7 +383,7 @@ const DecksData = {
                 question: "Question 7",
                 answer: "Answer 7"
             }
-            
+
         ]
     },
     "Deck 15": {
@@ -407,8 +407,8 @@ const DecksData = {
             }
         ]
     }
-  }
+}
 
-  export default function getDummyDecksData () {
-      return DecksData
-  }
+export default function getDummyDecksData() {
+    return DecksData
+}
