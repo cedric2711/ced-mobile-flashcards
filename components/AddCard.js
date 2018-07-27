@@ -37,6 +37,10 @@ class AddCard extends React.Component {
     submit = () => {
         const { dispatch } = this.props
         const questionSet = this.state
+        if(questionSet.question === '' || questionSet.answer=== '') {
+            alert("Fill the question set completely.")
+            return
+        }
         const questionKey = this.props.navigation.state.params.deckId
         const questions = this.props.decks
         const questionBlock = questions[questionKey]

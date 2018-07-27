@@ -25,8 +25,10 @@ class Decks extends React.Component {
         fetchDeckResults()
             .then((entries) => {
                 
-
-                return dispatch(receiveDecks(JSON.parse(entries)))
+                if(typeof(entries)==='string'){
+                    return dispatch(receiveDecks(JSON.parse(entries)))
+                }
+                return dispatch(receiveDecks(entries))
             })
             .then((entries) => {
                 if (entries) {

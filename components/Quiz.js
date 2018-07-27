@@ -72,7 +72,7 @@ class Quiz extends React.Component {
         if (quizCompleted) {
             return (
                 <View>
-                    <Text style={{ fontSize: 50, textAlign: 'center', color: black }}>You got {totalCorrect} correct</Text>
+                    <Text style={styles.questAnsTxt}>You got {totalCorrect} correct</Text>
                     <TouchableOpacity
                         style={styles.restartBtn}
                         onPress={this.restartQuiz}>
@@ -100,8 +100,8 @@ class Quiz extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={{ fontSize: 12, textAlign: 'left', color: gray }}>{(currentQuestion + 1)}/{questions.length} Cards</Text>
-                {!showAnswer && <Text style={{ fontSize: 50, textAlign: 'center', color: black }}>{questions[currentQuestion].question}</Text>}
-                {showAnswer && <Text style={{ fontSize: 50, textAlign: 'center', color: black }}>{questions[currentQuestion].answer}</Text>}
+                {!showAnswer && <Text style={styles.questAnsTxt}>{questions[currentQuestion].question}</Text>}
+                {showAnswer && <Text style={styles.questAnsTxt}>{questions[currentQuestion].answer}</Text>}
                 <TouchableOpacity
                     style={styles.answerBtn}
                     onPress={this.showAnswer}>
@@ -160,6 +160,11 @@ const styles = StyleSheet.create({
         height: 45,
         marginLeft: 40,
         marginRight: 40,
+    },
+    questAnsTxt:{
+        fontSize: 50,
+        textAlign: 'center',
+        color: black 
     },
     correctText: {
         color: black,

@@ -28,6 +28,10 @@ class AddDeck extends React.Component {
 
     submit = () => {
         const { title } = this.state
+        if(title === '') {
+            alert("Fill the Deck Title completely.")
+            return
+        }
         const { dispatch } = this.props
         const newDeck = {
             title: title,
