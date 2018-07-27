@@ -1,35 +1,33 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { white, purple, gray, black, green, red } from '../utils/colors'
-
-const qu= [
-    {
-        question:"Question 1",
-        answer: "Answer 1"
-    },
-    {
-        question:"Question 2",
-        answer: "Answer 2"
-    },
-    {
-        question:"Question 3",
-        answer: "Answer 3"
-    }
-]
+import {getEntry} from '../utils/api'
 
 class Quiz extends React.Component {
     state = {
         totalCorrect:0,
-        questions:qu ,
+        questions:[],
         currentQuestion: 0,
         quizCompleted: false,
         showAnswer:false,
         showAnswerText: "Answer"
     }
-   
-    backToDeck = () => {
-        debugger
 
+    componentDidMount () {
+        const deckTitle = this.props.navigation.state.params.deckId
+        getEntry(deckTitle)
+            .then((deck)=> {
+                this.setState({
+                    questions:deck.questions
+                })
+            })
+    }
+
+    backToDeck = () => {
+        this.props.navigation.navigate(
+            'Deck',
+            { deckId: this.props.navigation.state.params.deckId }
+        )
     }
     showAnswer = () => {
         const { showAnswer } = this.state
@@ -70,6 +68,16 @@ class Quiz extends React.Component {
                         onPress={this.backToDeck}>
                         <Text style={styles.correctText}>Back To Deck</Text>
                     </TouchableOpacity>
+                </View>
+            )
+        }
+
+        if (questions.length === 0) {
+            return (
+                <View>
+                    <Text>
+                        No Questions in the Deck!
+                    </Text>
                 </View>
             )
         }

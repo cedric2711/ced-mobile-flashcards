@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
-
+import {submitEntry} from '../utils/api'
 
 function SubmitBtn ({ onPress }) {
     return (
@@ -25,7 +25,17 @@ class AddDeck extends React.Component {
     }
 
     submit = () =>{
-        const questionSet= this.state
+        const {title}= this.state
+        const newDeck={
+            title:title,
+            questions:[]
+        }
+        submitEntry({entry:newDeck, key:title})
+        
+        this.props.navigation.navigate(
+            'Decks',
+            {}
+        )
 
     }
     render () {

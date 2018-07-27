@@ -27,6 +27,9 @@ class Decks extends React.Component {
            // .then((entries) => dispatch(receiveDecks(entries)))
             .then((entries) => {
                 if(entries){
+                    if(typeof(entries)=='string'){
+                        entries=JSON.parse(entries)
+                    }
                     this.setState({
                         ready: true,
                         questions: entries
@@ -89,5 +92,6 @@ function mapStateToProps({ entries }) {
     return {
       entries
     }
-  }
-  export default connect(mapStateToProps)(Decks)
+}
+//   export default connect(mapStateToProps)(Decks)
+  export default Decks

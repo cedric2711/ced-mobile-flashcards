@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
 import { white, purple, gray } from '../utils/colors'
+import {submitEntry, getEntry} from '../utils/api'
 
 
 function SubmitBtn ({ onPress }) {
@@ -16,7 +17,7 @@ function SubmitBtn ({ onPress }) {
 class AddCard extends React.Component {
     state = {
         question:'',
-        anwser:''
+        answer:''
     }
 
     handelQuestionChange = (input) =>{
@@ -27,13 +28,24 @@ class AddCard extends React.Component {
 
     handelAnswerChange = (input) =>{
         this.setState({
-            anwser: input
+            answer: input
         })
     }
 
     submit = () =>{
         const questionSet= this.state
-
+        const questionKey = this.props.navigation.state.params.deckId
+        getEntry(questionKey)
+            .then((questionBlock) => {
+                questionBlock.questions.push(questionSet)
+                debugger
+                submitEntry({entry:questionBlock, key:questionKey})
+            })
+        
+        this.props.navigation.navigate(
+            'Deck',
+            { deckId: questionKey }
+        )
     }
     render () {
         const {question, anwser} = this.state

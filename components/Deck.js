@@ -1,40 +1,41 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
-const qu= [
-    {
-        question:"Question 1",
-        answer: "Answer 1"
-    },
-    {
-        question:"Question 2",
-        answer: "Answer 2"
-    },
-    {
-        question:"Question 3",
-        answer: "Answer 3"
-    }
-]
+import {getEntry} from '../utils/api'
+
 class Deck extends React.Component {
     state = {
-        title:'Deck 1',
-        question:qu,
+        title:'',
+        questions:[],
+    }
+    componentDidMount () {
+        const deckTitle = this.props.navigation.state.params.deckId
+        getEntry(deckTitle)
+            .then((deck)=> {
+                this.setState(deck)
+            })
     }
     addCard = () => {
-        debugger;
+        this.props.navigation.navigate(
+            'AddCard',
+            { deckId: this.state.title }
+        )
     }
 
     startQuiz = () => {
-        debugger;
+        this.props.navigation.navigate(
+            'Quiz',
+            { deckId: this.state.title }
+        )
     }
     render () {
         debugger;
         const {deckId} = this.props
-        const {title, question} = this.state
+        const {title, questions} = this.state
         return (
             <View>
                 <Text style={{fontSize: 50, textAlign: 'center', color: black}}>{title}</Text>
-                <Text style={{fontSize: 40, textAlign: 'center', color: gray}}>{question.length} Cards</Text>
+                <Text style={{fontSize: 40, textAlign: 'center', color: gray}}>{questions.length} Cards</Text>
                 <TouchableOpacity
                     style = {styles.addCardBtn}
                     onPress={this.addCard}>
