@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform, FlatList } from 'react-native'
-import { white, purple, gray, black } from '../utils/colors'
+import { Text, View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { white, gray, black } from '../utils/colors'
 import { receiveDecks } from '../actions'
 import getDummyDecksData from '../utils/data'
 import { connect } from 'react-redux'

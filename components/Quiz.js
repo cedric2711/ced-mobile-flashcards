@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
-import { white, purple, gray, black, green, red } from '../utils/colors'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { white, gray, black, green, red } from '../utils/colors'
 import {getEntry} from '../utils/api'
 import {  clearLocalNotification, setLocalNotification } from '../utils/helpers'
 

@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-} from 'react-navigation';
+import { Platform } from 'react-native';
+import { createBottomTabNavigator } from 'react-navigation';
 import Decks from './Decks'
 import AddDeck from './AddDeck'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'

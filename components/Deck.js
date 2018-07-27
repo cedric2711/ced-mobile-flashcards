@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { white, purple, gray, black } from '../utils/colors'
 import {getEntry} from '../utils/api'
 
