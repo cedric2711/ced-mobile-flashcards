@@ -1,17 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native'
-import AddCard from './components/AddCard'
-import Deck from './components/Deck'
-import Quiz from './components/Quiz'
-import AddDeck from './components/AddDeck'
-import Decks from './components/Decks'
+import { View, StatusBar} from 'react-native'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import MainNavigator from './components/MainNavigator'
-import { white, purple, gray, black } from './utils/colors'
+import { purple } from './utils/colors'
 import { Constants } from 'expo'
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { setLocalNotification } from './utils/helpers'
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -23,8 +18,11 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
 
 
 export default class App extends React.Component {
+  componentDidMount(){
+    setLocalNotification()
+  }
+
   render() {
-    debugger
     return (
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>

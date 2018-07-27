@@ -31,11 +31,12 @@ class AddDeck extends React.Component {
             questions:[]
         }
         submitEntry({entry:newDeck, key:title})
-        
-        this.props.navigation.navigate(
-            'Decks',
-            {}
-        )
+            .then(()=>{
+                this.props.navigation.navigate(
+                    'Deck',
+                    { deckId: title }
+                )
+            })
 
     }
     render () {

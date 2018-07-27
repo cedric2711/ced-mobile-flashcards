@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native'
 import { white, purple, gray, black, green, red } from '../utils/colors'
 import {getEntry} from '../utils/api'
+import {  clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends React.Component {
     state = {
@@ -28,7 +29,22 @@ class Quiz extends React.Component {
             'Deck',
             { deckId: this.props.navigation.state.params.deckId }
         )
+        clearLocalNotification()
+            .then(setLocalNotification)
+        
     }
+
+    restartQuiz = () => {
+        this.setState({
+            totalCorrect:0,
+            currentQuestion: 0,
+            quizCompleted: false
+        })
+
+        clearLocalNotification()
+            .then(setLocalNotification)
+    }
+
     showAnswer = () => {
         const { showAnswer } = this.state
         this.setState({
@@ -63,6 +79,11 @@ class Quiz extends React.Component {
             return (
                 <View>
                     <Text style={{fontSize: 50, textAlign: 'center', color: black}}>You got {totalCorrect} correct</Text>
+                    <TouchableOpacity
+                        style = {styles.restartBtn}
+                        onPress={this.restartQuiz}>
+                        <Text style={styles.correctText}>Restart Quiz</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         style = {styles.correctBtn}
                         onPress={this.backToDeck}>
@@ -117,6 +138,16 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       flex: 1,
       alignItems: 'center',
+    },
+    restartBtn: {
+        backgroundColor: gray,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        marginLeft: 40,
+        marginRight: 40,
+        borderColor: black,
+        borderWidth: 1,
     },
     correctBtn: {
         backgroundColor: green,
